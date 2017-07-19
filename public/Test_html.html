@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <style>
+        #theBtn{
+            width: 100%;
+            height: 200px;
+        }
+        input {
+            font-size:50px;
+            width: 300px;
+            height: 200px;
+            /*margin: 100px 300px 200px 500px;*/
+        }
+        #theShow{
+            padding: 20px;
+            font-size: 20px;
+            text-align: center;
+            width: 100%;
+            height: 600px;
+            border: 1px solid black;
+        }
+    </style>
+    <script src="./javascripts/jquery.min.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="theBtn">
+    <!--点击不按钮，触发请求-->
+    <input type="button" value="GET" id="theGet"/>
+    <input type="button" value="POST" id="thePost"/>
+</div>
+
+<div id="theShow"></div>
+<script>
+    $(function () {
+        // 点击GET按钮，发出请求
+        // $("#theGet").click(function () {
+        //     $.ajax({
+        //         // url: '/VueHandler/aa?action=haha',//请求地址 req.query.action==='haha'
+        //         // url: '/VueHandler/AdminLoginAndRegHandler?action=verification',   //登录
+        //         url:'/VueHandler/AdminHandler?action=delete',    //删除
+        //         // url:'/VueHandler/AdminLoginAndRegHandler?action=checkVerification',  //验证码校验
+        //         type:"GET",//请求方式
+        //         async:false,//同步异步
+        //         data:{
+        //             // get 里面的data没有东西，如果有东西，也会当做参数，放在地址栏的?后面
+        //             tokenId:1
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //                // window.location = "Test_courseShow.html";
+        //             }
+        //         }
+        //     })
+        // });
+
+// 显示人员信息
+        // $("#theGet").click(function () {
+        //     $.ajax({
+        //         url:'/VueHandler/AdminHandler?action=show',   //显示人员信息
+        //         type:"GET",
+        //         async:false,
+        //         data:{
+        //             // get 里面的data没有东西，如果有东西，也会当做参数，放在地址栏的?后面
+        //             // 分页 pageStart=1 查看第一页的数据
+        //             searchText:'',
+        //             pageStart:'1'
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //             }
+        //         }
+        //     })
+        // });
+
+// 冻结，解冻
+        $("#theGet").click(function () {
+            $.ajax({
+                url:'/VueHandler/AdminHandler?action=lockuser',
+                type:"GET",
+                async:false,
+                data:{
+                    tokenId:1
+                },
+                success: function (data) {
+                    $("#theShow").html(data);
+                    var msg = eval('(' + data + ')');
+                    if(msg.success)
+                    {
+                        alert(1);
+                    }
+                }
+            })
+        });
+
+
+// 注册功能
+        // $("#thePost").click(function () {
+        //     $.ajax({
+        //         url: '/VueHandler/AdminLoginAndRegHandler?action=add', //注册   
+        //         type:"POST",
+        //         async:false,
+        //         data:{
+        //             // 要去发送的请求的数据
+        //             userName : 'A',
+        //             password : '123456',
+        //             trueName : '皮卡丘',
+        //             phone:'12345678900',
+        //             power:'系统管理人员'
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //                 //window.location = "Test_courseShow.html";
+        //             }
+        //         }
+        //     })
+        // });
+
+// 添加学员注册信息
+        // $("#thePost").click(function () {
+        //     $.ajax({
+        //         url: '/VueHandler/AdminHandler?action=adduser', 
+        //         type:"POST",
+        //         async:false,
+        //         data:{
+        //             // 要去发送的请求的数据
+        //             'addemail':'113000000@qq.com',
+        //             'addphone':'11111111111',
+        //             'userName':'哦'
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //                 //window.location = "Test_courseShow.html";
+        //             }
+        //         }
+        //     })
+        // });
+
+// 添加视频
+        // $("#thePost").click(function () {
+        //     $.ajax({
+        //         url: '/VueHandler/VideoHandler?action=add', 
+        //         type:"POST",
+        //         async:false,
+        //         data:{
+        //             // 要去发送的请求的数据
+        //             'Vname':'测试上传视频',
+        //             'Vtime':'1',
+        //             'Vurl':'turn right'
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //                 //window.location = "Test_courseShow.html";
+        //             }
+        //         }
+        //     })
+        // });
+
+// 修改视频
+        // $("#thePost").click(function () {
+        //     $.ajax({
+        //         url: '/VueHandler/VideoHandler?action=update', 
+        //         type:"POST",
+        //         async:false,
+        //         data:{
+        //             'ID':1,
+        //             'Vname':'修改的视频',
+        //             'Vtime':'2',
+        //             'Vurl':'转角遇到爱'
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //                 //window.location = "Test_courseShow.html";
+        //             }
+        //         }
+        //     })
+        // });
+
+// 视频列表请求 查询
+        $("#thePost").click(function () {
+            $.ajax({
+                url: '/VueHandler/VideoHandler?action=showlist', 
+                type:"POST",
+                async:false,
+                data:{
+                    'ID':1,
+                    'Vname':'修改的视频',
+                    'Vtime':'2',
+                    'Vurl':'转角遇到爱'
+                },
+                success: function (data) {
+                    $("#theShow").html(data);
+                    var msg = eval('(' + data + ')');
+                    if(msg.success)
+                    {
+                        alert(1);
+                        //window.location = "Test_courseShow.html";
+                    }
+                }
+            })
+        });
+
+
+// 返回登录的用户信息
+        // $("#thePost").click(function () {
+        //     $.ajax({
+        //         url:'/VueHandler/AdminHandler?action=returnuserinfo',
+        //         type:"POST",
+        //         async:false,
+        //         data:{
+     
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //                 //window.location = "Test_courseShow.html";
+        //             }
+        //         }
+        //     })
+        // });
+
+// 修改密码
+        // $("#thePost").click(function () {
+        //     $.ajax({
+        //         url:'/VueHandler/AdminHandler?action=updatepass',
+        //         type:"POST",
+        //         async:false,
+        //         data:{
+        //             'userPwd':'123456', 
+        //             'newPwd':'AAAAAA'
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //                 //window.location = "Test_courseShow.html";
+        //             }
+        //         }
+        //     })
+        // });
+
+// 修改用户信息
+        // $("#thePost").click(function () {
+        //     $.ajax({
+        //         url:'/VueHandler/AdminHandler?action=update', //修改信息
+        //         type:"POST",
+        //         async:false,
+        //         data:{
+        //             "tokenId":1,
+        //             "userName":"哇哈哈",
+        //             "truename":"爽歪歪",
+        //             "phone":"12345678911",
+        //             "power":"网管"
+        //         },
+        //         success: function (data) {
+        //             $("#theShow").html(data);
+        //             var msg = eval('(' + data + ')');
+        //             if(msg.success)
+        //             {
+        //                 alert(1);
+        //                 //window.location = "Test_courseShow.html";
+        //             }
+        //         }
+        //     })
+        // });
+
+
+
+
+
+    })
+
+// *********************预加载的,外面的内容（浏览器一刷新，就进入到这个里面的操作）****************************************
+//     $.ajax({
+//         url: '',
+//         type:"POST",
+//         async:false,
+//         data:{
+
+
+//         },
+//         success: function (data) {
+//             $("#theShow").html(data);
+// //            var msg = eval('(' + data + ')');
+// //            if(msg.success)
+// //            {
+// //                alert(1);
+// //                //window.location = "Test_courseShow.html";
+// //            }
+//         }
+//     });
+
+
+//  $.ajax({
+//     url: '/VueHandler/AdminLoginAndRegHandler?action=verification',
+//     type:"GET",
+//     async:false,
+//     data:{
+        
+//     },
+//     success: function (data) {
+//         console.log(data)
+//     }
+// })
+
+
+// $.ajax({   // 放在了预加载外面 ---》页面加载就会发起请求  生成一组验证码
+//     url: '/VueHandler/AdminLoginAndRegHandler?action=login',
+//     // 请求的地址   我对服务器 发出的请求 是 url   if(req.query.action=='verification')
+//     type:"POST",  // 请求方式
+//     async:false,  // 同步 异步
+//     data:{
+//         userName:'A',
+//         password:'123456'
+//     },
+//     success: function (data) {
+// //                    我拿到了请求的 数据了
+
+//         console.log(data);
+//     }
+// })
+
+
+
+// 登录
+$.ajax({
+    url:'/VueHandler/AdminLoginAndRegHandler?action=login', //登录功能
+    type:"POST",
+    async:false,
+    data:{
+        // 登录功能发送的数据
+        userName:'B',
+        password : '123456'
+    },
+    success: function (data) {
+        $("#theShow").html(data);
+        var msg = eval('(' + data + ')');
+        if(msg.success)
+        {
+            alert(1);
+            console.log(data);
+            //window.location = "Test_courseShow.html";
+        }
+    }
+})
+
+
+
+
+
+</script>
+</body>
+</html>
